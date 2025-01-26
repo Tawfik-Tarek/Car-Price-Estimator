@@ -22,14 +22,14 @@ export class UsersService {
     return user;
   }
 
-  find(name: string) {
-    const user = this.repo.find({
+  async find(name: string) {
+    const users = await this.repo.find({
       where: {
         name,
       },
     });
 
-    return user;
+    return users;
   }
 
   async update(id: number, attrs: Partial<User>) {
