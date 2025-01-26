@@ -12,12 +12,15 @@ export class UsersService {
     this.repo.save(user);
   }
 
-  findOne(id: number) {
-    const user = this.repo.findOne({
+  async findOne(id: number) {
+    const user = await this.repo.findOne({
       where: {
         id,
       },
     });
+
+    console.log(user);
+    
 
     return user;
   }

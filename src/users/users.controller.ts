@@ -10,6 +10,8 @@ export class UsersController {
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
     const { email, password } = body;
+    console.log("reqqqq" , email , password);
+    
     this.UsersService.create(email, password);
   }
 
@@ -23,13 +25,13 @@ export class UsersController {
     return this.UsersService.find(name);
   }
 
-  @Patch('/id')
-  updateUser(@Query("id") id: string,@Body() body: UpdateUserDto){
+  @Patch('/:id')
+  updateUser(@Param("id") id: string,@Body() body: UpdateUserDto){
     return this.UsersService.update(parseInt(id) , body)
   }
 
-  @Delete()
-  deleteUser(@Query("id") id: string){
+  @Delete('/:id')
+  deleteUser(@Param("id") id: string){
     return this.UsersService.remove(parseInt(id))
   }
 
