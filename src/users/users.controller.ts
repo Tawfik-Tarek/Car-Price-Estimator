@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query} from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user-dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update-user-dto';
@@ -10,27 +21,28 @@ export class UsersController {
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
     const { email, name, password } = body;
-    this.UsersService.create(email , name, password);
+    this.UsersService.create(email, name, password);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/:id')
   findUser(@Param('id') id: string) {
     return this.UsersService.findOne(parseInt(id));
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  findAllUsers(@Query('name') name: string){
+  findAllUsers(@Query('name') name: string) {
     return this.UsersService.find(name);
   }
 
   @Patch('/:id')
-  updateUser(@Param("id") id: string,@Body() body: UpdateUserDto){
-    return this.UsersService.update(parseInt(id) , body)
+  updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
+    return this.UsersService.update(parseInt(id), body);
   }
 
   @Delete('/:id')
-  deleteUser(@Param("id") id: string){
-    return this.UsersService.remove(parseInt(id))
+  deleteUser(@Param('id') id: string) {
+    return this.UsersService.remove(parseInt(id));
   }
-
 }
