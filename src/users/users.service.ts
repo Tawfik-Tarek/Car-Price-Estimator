@@ -26,10 +26,10 @@ export class UsersService {
     return user;
   }
 
-  async find(name: string) {
+  async find(email: string) {
     const users = await this.repo.find({
       where: {
-        name,
+        email,
       },
     });
 
