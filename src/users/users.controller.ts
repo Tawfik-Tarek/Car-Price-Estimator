@@ -28,7 +28,7 @@ export class UsersController {
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     const { email, name, password } = body;
     const user = await this.authService.signup(email, name, password);
-    session.userId = user.id
+    session.userId = user.id;
     return user;
   }
 
@@ -39,6 +39,12 @@ export class UsersController {
     session.userId = user.id;
     return user;
   }
+
+  @Post('/signout')
+  signout(@Session() session: any) {
+    session.userId = null;
+  }
+
 
   @Get('/:id')
   findUser(@Param('id') id: string) {
