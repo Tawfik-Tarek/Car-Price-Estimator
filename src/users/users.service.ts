@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,6 +17,9 @@ export class UsersService {
   }
 
   async findOne(id: number) {
+    if (!id) {
+      throw new BadRequestException('params are not correct');
+    }
     const user = await this.repo.findOne({
       where: {
         id,
@@ -28,12 +35,12 @@ export class UsersService {
 
   async find(email: string) {
     if (!email) {
-      throw new BadRequestException('credentials are not correct');
+      throw new BadRequestException('params are not correct');
     }
     const users = await this.repo.find({
       where: {
-        email
-      }
+        email,
+      },
     });
 
     return users;
