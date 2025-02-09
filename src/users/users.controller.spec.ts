@@ -3,7 +3,6 @@ import { UsersController } from './users.controller';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { NotFoundException } from '@nestjs/common';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -93,5 +92,16 @@ describe('UsersController', () => {
     const user = await controller.findUser('1');
     expect(user).toBeDefined();
     expect(user.id).toEqual(1);
+  });
+
+  it('signin works', async () => {
+    const session = { userId: null };
+    const user = await controller.signin(
+      { email: 'any@any.any', name: 'me', password: '1234' },
+      session,
+    );
+    expect(user).toBeDefined();
+    expect(user.email).toBe('any@any.any');
+    expect(session.userId).toEqual(user.id);
   });
 });
