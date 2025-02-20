@@ -29,4 +29,22 @@ describe('Auth System', () => {
         expect(returnedName).toBe(name);
       });
   });
+
+  it('signup as a new user then get the currently logged in user', async () => {
+    const email = 'tawfik@gmail.com';
+    const name = 'tawfik';
+    const res = await request(app.getHttpServer())
+    .post('/auth/signup')
+    .send({email, name, password: '1234' })
+    .expect(201)
+
+    const cookie = res.get('Set-Cookie')
+
+    const {body} = await request(app.getHttpServer())
+    .get('/auth/whoami')
+    .set("Cookie" , cookie)
+    .expect(200)
+
+    expect(body.email).toBe(email)
+  });
 });
