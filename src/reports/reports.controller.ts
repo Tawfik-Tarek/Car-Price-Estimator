@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AddReportDto } from './dtos/add-report.dto';
 import { ReportsService } from './reports.service';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { CurrentUser } from 'src/users/decorators/current-user.decorator';
-import { User } from 'src/users/user.entity';
+import { AuthGuard } from '../guards/auth.guard';
+import { CurrentUser } from '../users/decorators/current-user.decorator';
+import { User } from '../users/user.entity';
+import { Serialize } from '../interceptors/serialize.interceptor';
+import { ReportDto } from './dtos/report.dto';
 
 @Controller('reports')
 export class ReportsController {
@@ -11,6 +13,7 @@ export class ReportsController {
 
   @Post()
   @UseGuards(AuthGuard)
+  @Serialize(ReportDto)
   addReport(@Body() body: AddReportDto, @CurrentUser() user: User) {
     return this.reportsService.create(body, user);
   }
