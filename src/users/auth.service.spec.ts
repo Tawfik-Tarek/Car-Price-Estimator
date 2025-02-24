@@ -21,7 +21,7 @@ describe('AuthService', () => {
           email,
           name,
           password,
-        };
+        } as User;
         users.push(user);
         return Promise.resolve(user);
       },

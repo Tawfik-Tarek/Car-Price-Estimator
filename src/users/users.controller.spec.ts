@@ -17,7 +17,7 @@ describe('UsersController', () => {
           email,
           name,
           password,
-        };
+        } as User;
         return Promise.resolve(user);
       },
       signin: (email: string, password: string) =>
@@ -26,7 +26,7 @@ describe('UsersController', () => {
           email,
           name: email,
           password,
-        }),
+        } as User),
     };
 
     mockUsersService = {
@@ -36,7 +36,7 @@ describe('UsersController', () => {
           email: 'any@any.any',
           name: 'any',
           password: 'any',
-        });
+        } as User);
       },
       find: (email: string) => {
         return Promise.resolve([
@@ -46,7 +46,7 @@ describe('UsersController', () => {
             name: 'any',
             password: 'any',
           },
-        ]);
+        ] as User[]);
       },
       update: (id: number, attrs: Partial<User>) => {
         return Promise.resolve({
@@ -55,7 +55,7 @@ describe('UsersController', () => {
           name: 'any',
           password: 'any',
           ...attrs,
-        });
+        } as User);
       },
       remove: (id: number) => {
         return Promise.resolve({
@@ -63,7 +63,7 @@ describe('UsersController', () => {
           email: 'any@any.any',
           name: 'any',
           password: 'any',
-        });
+        } as User);
       },
     };
 
