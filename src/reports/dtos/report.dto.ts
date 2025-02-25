@@ -25,7 +25,10 @@ export class ReportDto {
   @Expose()
   price: number;
 
-  @Transform(({obj}) => obj.user.id)
+  @Expose()
+  approved: boolean;
+
+  @Transform(({ obj }) => obj.user.id)
   @Expose()
   userId: number;
 }
