@@ -1,4 +1,3 @@
-import { Exclude } from 'class-transformer';
 import { Report } from 'src/reports/report.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
@@ -7,6 +6,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({default: false})
   admin: boolean;
 
   @Column()
